@@ -1,5 +1,5 @@
 //
-//  Education_Unit_TestsTests.swift
+//  ConverterTests.swift
 //  Education_Unit_TestsTests
 //
 //  Created by Nate Hancock on 1/21/22.
@@ -8,13 +8,17 @@
 import XCTest
 @testable import Education_Unit_Tests
 
-class Education_Unit_TestsTests: XCTestCase {
+class ConverterTests: XCTestCase {
+    
+    var sut: Converter!
 
     override func setUpWithError() throws {
+        sut = Converter()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
+        sut = nil
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
@@ -29,26 +33,28 @@ class Education_Unit_TestsTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
-    func testHaterStartsNicely() {
-        let hater = Hater()
-        XCTAssertFalse(hater.hating)
-    }
     
-    func testHaterHatesAfterBadDay() {
+    func test32FahrenheitTo0Celsius() {
         // arrange
-        var hater = Hater()
+        let sut = Converter() // sut = system under test
         
         // act
-        hater.hadABadDay()
+        let input = 32.0
+        let output = sut.convertToCelsius(fahrenheit: input)
         
         // assert
-        XCTAssertTrue(hater.hating)
-    }
-    func testHaterHappyAfterGoodDay() {
-        var hater = Hater()
-        hater.hadAGoodDay()
-        XCTAssertFalse(hater.hating)
+        XCTAssertEqual(output, 0, accuracy: 0.0000001)
     }
     
+    func test212FahrenheitTo100Celsius() {
+        // arrange
+        let sut = Converter() // sut = system under test
+        
+        // act
+        let input = 212.0
+        let output = sut.convertToCelsius(fahrenheit: input)
+        
+        // assert
+        XCTAssertEqual(output, 100, accuracy: 0.0000001)
+    }
 }
